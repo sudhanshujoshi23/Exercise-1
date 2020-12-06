@@ -35,13 +35,20 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('Home') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.Home') }}">Home</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="{{ url_for('Funds') }}">Funds</a>
-              <a class="nav-item nav-link" href="{{ url_for('Investors') }}">Investors</a>
-              <a class="nav-item nav-link" href="{{ url_for('Login') }}">Login</a>
+                {% if current_user.is_authenticated: %}
+                  <a class="nav-item nav-link" href="{{ url_for('funds.Funds') }}">Funds</a>
+                  <a class="nav-item nav-link" href="{{ url_for('investors.Investors') }}">Investors</a>
+                  <a class="nav-item nav-link" href="{{ url_for('investors.AddInvestment') }}">Add Investment</a>
+                  <a class="nav-item nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{{ url_for('main.login') }}">Login</a>
+                  <a class="nav-item nav-link" href="{{ url_for('main.signup_user') }}">Register</a>
+                {% endif %}
               
             </div>
           </div>

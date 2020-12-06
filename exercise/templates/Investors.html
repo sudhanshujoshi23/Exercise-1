@@ -5,15 +5,17 @@
         <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Total Invested Amount</th>
         </tr>
-        {% for investor in investors %}
+        {% for investor in investors %}        
                 <tr>
-                  <td><a class="mr-2" href="{{ url_for('update_investor', Investor_ID=investor.InvestorID) }}">{{ investor.FirstName }} {{ investor.LastName }}</a></td>
+                  <td><a class="mr-2" href="{{ url_for('investors.update_investor', Investor_ID=investor.InvestorID) }}">{{ investor.FirstName }} {{ investor.LastName }}</a></td>
                   <td>{{ investor.email }}</td>
+                  <td>$ {{ invested_sums[investor.InvestorID] }}</td>
                 </tr>
         {% endfor %}
         </table><br/>
         <div>
-          <a class="btn btn-info" href="{{ url_for('create_investor') }}">Add New Investor</a>
+          <a class="btn btn-info" href="{{ url_for('investors.create_investor') }}">Add New Investor</a>
         </div>        
 {% endblock %}

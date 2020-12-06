@@ -1,9 +1,27 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from exercise.config import Config
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dd2266cabe4d64b882732d3bf7442676'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.login_view = 'main.login'
+login_manager.login_message_category = 'info'
 
-from exercise import routes
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    
+    db.init_app(app)
+    login_manager.init_app(app)
+
+    from exercise.Fund.routes import funds
+    from exercise.Investor.routes import investors
+    from exercise.main.routes import main
+
+    app.register_blueprint(funds)
+    app.register_blueprint(investors)
+    app.register_blueprint(main)
+
+    return app
+

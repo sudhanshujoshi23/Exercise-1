@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Add New Investment</legend>
+                <div class="form-group">
+                    {{ form.Fund_ID.label(class="form-control-label") }}
+                    
+                    <select name="Fund_ID">
+                        {%- for fund in funds %}
+                          <option value="{{ fund.FundID  }}">{{ fund.FundName }}</option>
+                        {%- endfor %}
+                        </select>
+                </div>
+
+                <div class="form-group">
+                    {{ form.Investor_ID.label(class="form-control-label") }}
+                    
+                    <select name="Investor_ID">
+                        {%- for investor in investors %}
+                          <option value="{{ investor.InvestorID  }}">{{ investor.FirstName }} {{ investor.LastName }}</option>
+                        {%- endfor %}
+                        </select>
+                </div>
+
+                <div class="form-group">
+                    {{ form.Units.label(class="form-control-label") }}
+                    {% if form.Units.errors %}
+                        {{ form.Units(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.Units.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.Units(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

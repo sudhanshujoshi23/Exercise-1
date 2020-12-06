@@ -9,11 +9,11 @@
         {% for fund in funds %}
                 <tr>
                   <td>{{ fund.FundName }}</td>
-                  <td><a href="{{ url_for('update_fund', Fund_ID=fund.FundID) }}" class="mr-2">{{ fund.UnitPrice }}</a></td>
+                  <td><a href="{{ url_for('funds.update_fund', Fund_ID=fund.FundID) }}" class="mr-2">{{ fund.UnitPrice }}</a></td>
                 </tr>
         {% endfor %}
         </table><br/>
         <div>
-          <a class="btn btn-info" href="{{ url_for('create_fund') }}">Add New Fund</a>
+          <a class="btn btn-info" href="{{ url_for('funds.create_fund') }}">Add New Fund</a>
         </div>
 {% endblock %}
